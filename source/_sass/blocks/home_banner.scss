@@ -1,0 +1,126 @@
+.home_banner {
+    position: relative;
+
+    &__background {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: $bannerBgColor url(/img/home_banner_bg.jpg) center top no-repeat;
+        &:before {
+            content: "";
+            top: 0;
+            left: 0;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(to right, $bannerBgColor 10%, rgba(255,255,255,0) 20%, rgba(255,255,255,0) 80%, $bannerBgColor 90%);
+            @media only screen and (max-width: $xlargeVP) {
+                display: none;
+            }
+        }
+    }
+
+    &__content {
+        overflow: hidden;
+        z-index: 1;
+        position: relative;
+    }
+
+    &__title {
+        max-width: 550px;
+
+        color: #f9f2e8;
+        font-family: $titleFont;
+        font-weight: 400;
+        font-size: 52px;
+        text-shadow: 1px 1px 0 #1e5f42;
+    }
+
+    &__intro {
+        margin: 15px 0 0 0;
+        max-width: 550px;
+
+        color: #f9f2e8;
+        font-family: $baseFont;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 2;
+    }
+
+    &__links {
+        margin: 25px 0 0 0;
+    }
+
+    &__link {
+        transition: all .15s;
+
+        display: inline-block;
+        margin: 0 10px 0 0;
+        padding: 10px 30px;
+
+        color: #4cb88a;
+        font-family: $titleFont;
+        font-weight: 400;
+        font-size: 18px;
+        text-decoration: none;
+
+        border-radius: 3px;
+        background: darken(#1a4c37, 2%);
+
+        &:hover {
+            color: #f9f2e8;
+            background: darken(#1a4c37, 4%);
+        }
+    }
+
+    @media only screen and (max-width: 767px) {
+        padding: 70px 0;
+        text-align: center;
+        background-size: cover;
+
+        &__title {
+            margin: 0 auto;
+            font-size: 60px;
+        }
+
+        &__intro {
+            margin: 15px auto 0 auto;
+        }
+
+        &__link:first-child {
+            margin-bottom: 10px;
+        }
+    }
+
+    @media only screen and (min-width: $smallVP) {
+        height: 545px;
+        background-position: calc(50% + 450px) 50%;
+
+        &__title {
+            margin: 100px 0 0 0;
+        }
+    }
+
+    @media only screen and (min-width: $mediumVP) {
+        background-position: calc(50% - 60px) 50%;
+
+        &__content {
+            padding: 0 0 0 400px;
+        }
+    }
+
+    @media only screen and (min-width: $largeVP) {
+        &__content {
+            padding: 0 0 0 550px;
+        }
+    }
+
+    @media only screen and (min-width: $xlargeVP) {
+        &__content {
+            padding: 0 0 0 800px;
+        }
+    }
+}

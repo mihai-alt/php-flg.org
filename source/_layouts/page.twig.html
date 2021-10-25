@@ -1,0 +1,21 @@
+{% extends 'base' %}
+
+{% block wrapper %}
+<div class="page_banner">
+    <div class="center">
+        <h1 class="page_banner__title">
+            {% block page_title %}
+            {{ page.title }}
+            {% endblock %}
+        </h1>
+    </div>
+</div>
+
+<div class="center">
+    <div class="page_content__padding">
+        {% block contents %}
+            {{ page.blocks.content | raw }}
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}

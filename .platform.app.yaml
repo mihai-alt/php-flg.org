@@ -1,0 +1,53 @@
+name: php-fig-website
+type: php:8.5
+
+build:
+  flavor: composer
+
+web:
+  locations:
+    "/":
+      root: "output_dev"
+      index:
+        - "index.html"
+      headers:
+        Permissions-Policy: 'interest-cohort=()'
+      expires: 300s
+      scripts: true
+      allow: false
+      rules:
+        \.(css|js|gif|jpe?g|png|ttf|eot|woff2?|otf|html|ico|xml|svg?)$:
+          allow: true
+        ^/(robots|humans)\.txt$:
+          allow: true
+
+disk: 1024
+
+dependencies:
+  nodejs:
+    sass: '^1.85'
+  php:
+    composer/composer: '^2.9'
+
+hooks:
+  build: |
+    set -e
+    cat /etc/*release
+    php -v
+    ruby -v
+    curl -sS https://platform.sh/cli/installer | php
+    echo "cachebust: $PLATFORM_PROJECT_ENTROPY" >> app/config/sculpin_site.yml
+
+    bin/install.sh
+    bin/build-php.sh
+    bin/build-sass.sh
+    bin/html-proofer.sh
+
+crons:
+    renewcert:
+        # Force a redeploy at 6 am (UTC) on the 14th and 28th of every month.
+        spec: '0 6 14,28 * *'
+        cmd: |
+            if [ "$PLATFORM_BRANCH" = master ]; then
+                platform redeploy --yes
+            fi

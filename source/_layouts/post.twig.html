@@ -1,0 +1,34 @@
+{% extends 'page' %}
+
+{% block contents %}
+
+    <div class="columns__column columns__column--8">
+        <div class="markdown">
+            {{ page.blocks.content| markdown }}
+        </div>
+
+        {% include 'post-tags.twig' with {post: page} %}
+
+        <span  class="blog-post__meta__date">
+            {{ page.date|date('F jS Y') }}
+        </span>
+    </div>
+
+    {% for author in data.authors %}
+        {% if page.author and author.identifier == page.author %}
+        <div class="columns__column columns__column--4 columns__column--padding_left">
+            <nav class="sidebar">
+                {% include 'post-author.twig' %}
+            </nav>
+        </div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block description_block %}
+    {%- if page.description -%}
+        {{ page.description |replace({"\n": " "}) }}
+    {%- else -%}
+        {{ parent() }}
+    {%- endif -%}
+{% endblock %}

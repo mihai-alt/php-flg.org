@@ -1,0 +1,41 @@
+<div class="sidebar__author">
+    <h2 class="sidebar__title">Author: {{ author.title }}</h2>
+
+    {% if author.bio %}
+        <div class="columns__column columns__column--12">
+            {% if author.avatar %}
+                <div class="columns__column columns__column--4">
+                    <img class="sidebar__author__avatar" src="{{ author.avatar }}" alt="{{ author.title }}'s avatar"/>
+                </div>
+            {% endif %}
+
+            <p class="sidebar__description">{{ author.bio }}</p>
+        </div>
+    {% endif %}
+
+    <ul class="sidebar__list">
+        {% if author.twitter %}
+            <li class="sidebar__item">
+                <a class="sidebar__link" href="https://twitter.com/{{ author.twitter }}" target="_blank">
+                    @{{ author.twitter }} on Twitter
+                </a>
+            </li>
+        {% endif %}
+
+        {% if author.mastodon %}
+            <li class="sidebar__item">
+                <a class="sidebar__link" href="{{ author.mastodon }}" target="_blank">
+                    {{ author.mastodon }} on Mastodon
+                </a>
+            </li>
+        {% endif %}
+
+        <li class="sidebar__item">
+            <a class="sidebar__link" href="{{ author.url }}">
+                More about author
+            </a>
+        </li>
+    </ul>
+
+</div>
+

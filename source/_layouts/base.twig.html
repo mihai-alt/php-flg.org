@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>
+        {%- block title -%}
+            {{ page.title }}
+
+            {%- if page.url != '/' %} - PHP-FIG{%- endif -%}
+        {%- endblock -%}
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block head_meta %}{% endblock %}
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="me" href="https://phpc.social/@phpfig">
+    <link rel="stylesheet" href="/css/all.css?{{ site.cachebust }}">
+    <link rel="stylesheet" href="/css/hljs_default.css?{{ site.cachebust }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i|Oswald|Source+Code+Pro">
+
+    <link rel="preconnect" href="https://ajax.googleapis.com" pr="1.0" />
+    <link rel="preconnect" href="https://ssl.google-analytics.com" pr="0.8" />
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="PHP-FIG Blog Feed" />
+
+    <meta name="og:title" content="{{ block('title') |replace({"\n": ''}) | trim }}" />
+
+    <meta name="fediverse:creator" content="@phpfig@phpc.social" />
+
+    <meta name="twitter:title" content="{{ block('title') |replace({"\n": ''}) | trim }}" />
+    <meta name="twitter:site" content="@{{ site.twitter }}" />
+    <meta name="twitter:creator" content="@{{ site.twitter }}" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:image" content="{{ site.host }}/img/social-banner.png" />
+    <meta property="og:image" content="{{ site.host }}/img/social-banner.png" />
+
+    <meta property="og:type"  content="{% block og_type %}website{% endblock %}" />
+
+    <meta name="description" content="{% block description_block %}We're a group of established PHP projects whose goal is to talk about commonalities between our projects and find ways we can work better together.{% endblock %}">
+    <meta name="twitter:description" content="{{block('description_block')|replace({"\n": ''}) |trim}}" />
+    <meta name="og:description" content="{{block('description_block')|replace({"\n": ''})|trim}}" />
+
+</head>
+<body>
+
+<header class="site_header">
+    <div class="center">
+        <a class="site_logo" href="/">
+            <span class="site_logo__short_name">PHP-FIG</span>
+            <span class="site_logo__long_name">The PHP Framework Interop Group</span>
+        </a>
+        <nav class="site_menu">
+            <label class="site_menu__dropdown_button" for="site_menu__dropdown_checkbox">Menu</label>
+            <input class="site_menu__dropdown_checkbox" id="site_menu__dropdown_checkbox" type="checkbox">
+            <ul class="site_menu__list">
+                <li class="site_menu__item">
+                    <a class="site_menu__link {% if page.url == '/.' %}site_menu__link--active{% endif %}" href="/">Home</a>
+                </li>
+                <li class="site_menu__item">
+                    <a class="site_menu__link {% if page.url matches '#^/blog#' %}site_menu__link--active{% endif %}" href="/blog">Blog</a>
+                </li>
+                <li class="site_menu__item">
+                    <a class="site_menu__link {% if page.url matches '#^/psr#' %}site_menu__link--active{% endif %}" href="/psr">PSRs</a>
+                </li>
+                <li class="site_menu__item">
+                    <a class="site_menu__link {% if (page.url matches '#^/per#') and not (page.url matches '#^/personnel#') %}site_menu__link--active{% endif %}" href="/per">PERs</a>
+                </li>
+                <li class="site_menu__item">
+                    <a class="site_menu__link {% if page.url matches '#^/personnel#' %}site_menu__link--active{% endif %}" href="/personnel">Personnel</a>
+                </li>
+                <li class="site_menu__item">
+                    <a class="site_menu__link {% if page.url matches '#^/bylaws#' %}site_menu__link--active{% endif %}" href="/bylaws">Bylaws</a>
+                </li>
+                <li class="site_menu__item">
+                    <a class="site_menu__link {% if page.url matches '#^/faqs#' %}site_menu__link--active{% endif %}" href="/faqs">FAQs</a>
+                </li>
+                <li class="site_menu__item">
+                    <a class="site_menu__link {% if page.url matches '#^/get-involved#' %}site_menu__link--active{% endif %}" href="/get-involved">Get Involved</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="page_content">
+    {% block wrapper %}{% block content %}{% endblock %}{% endblock %}
+</div>
+
+<div class="site_footer_links">
+    <div class="center">
+        <div class="site_footer_links__content">
+            <ul class="site_footer_links__list">
+                <li class="site_footer_links__item site_footer_links__item--mastodon">
+                    <a class="site_footer_links__link" href="{{ site.mastodon }}">Follow us on Mastodon</a>
+                </li>
+                <li class="site_footer_links__item site_footer_links__item--bluesky">
+                    <a class="site_footer_links__link" href="{{ site.bluesky }}">Follow us on Bluesky</a>
+                </li>
+                <li class="site_footer_links__item site_footer_links__item--discord">
+                    <a class="site_footer_links__link" href="https://discord.gg/php-fig">Discuss on Discord</a>
+                </li>
+                <li class="site_footer_links__item site_footer_links__item--github">
+                    <a class="site_footer_links__link" href="https://github.com/php-fig">Contribute via GitHub</a>
+                </li>
+                <li class="site_footer_links__item site_footer_links__item--mailing_list">
+                    <a class="site_footer_links__link" href="https://groups.google.com/forum/?fromgroups#!forum/php-fig">Join our mailing list</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<footer class="site_footer">
+    <div class="center">
+        <span class="site_footer__section">&copy; <script type="text/javascript">document.write(new Date().getFullYear());</script> PHP Framework Interop Group.</span>
+        <span class="site_footer__section">Site design by <a class="site_footer__link" href="https://twitter.com/reinink" target="_blank">Jonathan Reinink</a>.</span>
+        <span class="site_footer__section platform_sh_widget">Hosting sponsored by the <a title="platform.sh" href="https://platform.sh/?utm_campaign=sponsored_sites&utm_source=php_fig" target="_blank"><img class="platformsh-logo" src="/img/platform-sh-logo.png" alt="platform.sh logo" style="padding: 0 3px 0 3px;height: 1.1em; vertical-align: text-bottom;"/></a> <a class="site_footer__link" href="https://platform.sh/?utm_campaign=sponsored_sites&utm_source=php_fig" target="_blank">PHP PaaS</a></span>
+    </div>
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+<script type="text/javascript">
+    var _gaq = _gaq || [];_gaq.push(['_setAccount','UA-1997599-8']);_gaq.push(['_setDomainName','php-fig.org']);_gaq.push(['_trackPageview']);
+    (function(){var ga=document.createElement('script');ga.type='text/javascript';ga.async=true;ga.src='https://ssl.google-analytics.com/ga.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(ga,s);})();
+</script>
+
+</body>
+</html>
